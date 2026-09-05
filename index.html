@@ -64,6 +64,7 @@ body.night #banner{background:#3a2f12;border-color:#6b5215;color:#e8d9a8}
 #mapBig svg{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 #mapBig svg.grabbing{cursor:grabbing}
 #mapBig .zoombtn{position:absolute;top:10px;left:10px;z-index:4;font:600 12px system-ui,sans-serif;color:#fff;background:rgba(31,47,82,.85);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 12px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+#mapBig svg .dlt{font:600 10px system-ui,sans-serif;fill:var(--muted);opacity:.9}
 .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .legend{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
 .legend .lg{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;display:inline-flex;align-items:center}
@@ -409,6 +410,23 @@ var COASTS = [
   {r:"nz", pts:[[172.8,-40.6],[173.3,-41.3],[174.2,-41.3],[174.4,-42.5],[172.6,-44.3],[169.5,-44.2],[170,-46.5],[171.2,-46.7],[171.6,-45.8],[173.2,-43.9],[173.4,-42.7],[173.3,-41.5]]}
 ];
 
+/* 缩放放大后逐步显示的地标点（tier 越高，需要放大越多才出现） */
+var DETAIL_TH = [300, 140];
+var DETAIL = [
+  {tier:1, name:"联邦广场", lat:-37.8175, lng:144.9685},
+  {tier:1, name:"环形码头", lat:-33.8587, lng:151.2105, off:[6,-10]},
+  {tier:1, name:"悉尼歌剧院", lat:-33.8568, lng:151.2153, off:[9,-4]},
+  {tier:1, name:"邦迪海滩", lat:-33.8915, lng:151.2767, off:[7,10]},
+  {tier:1, name:"基督城", lat:-43.5321, lng:172.6362},
+  {tier:1, name:"蒂卡普湖", lat:-44.0046, lng:170.471},
+  {tier:1, name:"塔斯曼冰川湖", lat:-43.7039, lng:170.153},
+  {tier:1, name:"Hooker Valley", lat:-43.7297, lng:170.0765},
+  {tier:2, name:"岩石区", lat:-33.8600, lng:151.2090, off:[6,-22]},
+  {tier:2, name:"海港大桥", lat:-33.8523, lng:151.2108, off:[6,16]},
+  {tier:2, name:"皇家植物园", lat:-33.8644, lng:151.2160, off:[6,22]},
+  {tier:2, name:"好牧人教堂", lat:-44.0044, lng:170.4752, off:[9,9]}
+];
+
 function toXY(r,p){ return {x:MAPSETT[r].x(p[0]), y:MAPSETT[r].y(p[1])}; }
 function smoothPath(pts, jitter){
   var P = pts.map(function(p){ return {x:p.x+(Math.random()-.5)*jitter, y:p.y+(Math.random()-.5)*jitter}; });
@@ -452,6 +470,60 @@ function mapSvg(){
   svg.setAttribute("role","img");
   svg.setAttribute("aria-label","澳新行程路线地图");
   return svg;
+}
+function detailsLayer(svg){
+  svg._details=[];
+  DETAIL.forEach(function(p){
+    var c=cityXY(p), g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("transform","translate("+c.x.toFixed(1)+","+c.y.toFixed(1)+")");
+    g.setAttribute("data-tier",String(p.tier));
+    var dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    dot.setAttribute("r","2.3"); dot.setAttribute("fill","#fff");
+    dot.setAttribute("stroke","var(--ink)"); dot.setAttribute("stroke-width","1.4");
+    g.appendChild(dot);
+    var o=p.off||[5,-4];
+    var txt=document.createElementNS("http://www.w3.org/2000/svg","text");
+    txt.setAttribute("class","dlt"); txt.setAttribute("x",o[0]); txt.setAttribute("y",o[1]);
+    txt.setAttribute("dominant-baseline","text-before-edge");
+    txt.textContent=p.name;
+    g.appendChild(txt);
+    svg._details.push(g);
+    svg.appendChild(g);
+  });
+}
+function scaleBarGroup(svg){
+  var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+  g.setAttribute("class","scalebar");
+  var bar=document.createElementNS("http://www.w3.org/2000/svg","rect");
+  bar.setAttribute("x","0"); bar.setAttribute("y","-9"); bar.setAttribute("height","4");
+  bar.setAttribute("fill","var(--ink)"); bar.setAttribute("opacity",".7");
+  g.appendChild(bar);
+  var lab=document.createElementNS("http://www.w3.org/2000/svg","text");
+  lab.setAttribute("class","dlt"); lab.setAttribute("x","0"); lab.setAttribute("y","-16");
+  lab.textContent="";
+  g.appendChild(lab);
+  svg._scale={g:g, bar:bar, lab:lab};
+  svg.appendChild(g);
+}
+function updateScaleBar(svg, vb){
+  if(!svg._scale) return;
+  var cx=vb.x+vb.w/2, cy=vb.y+vb.h/2, kmPer;
+  if(cx<485){ kmPer=0.1*111.32*Math.cos((-cy/10)*Math.PI/180); }
+  else{ kmPer=(1/6)*111.32*Math.cos((-(cy-120)/9)*Math.PI/180); }
+  var target=kmPer*vb.w*0.34, K=5, i;
+  var nice=[2000,1500,1000,750,500,400,300,200,150,100,75,50,40,30,20,15,10,5];
+  for(i=0;i<nice.length;i++){ if(nice[i]<=target){ K=nice[i]; break; } }
+  var units=K/kmPer;
+  svg._scale.g.setAttribute("transform","translate("+(vb.x+12)+","+(vb.y+vb.h-16)+")");
+  svg._scale.bar.setAttribute("width",units.toFixed(1));
+  svg._scale.lab.textContent=K+" km";
+}
+function updateDetails(svg, vb){
+  if(!svg._details) return;
+  var level = vb.w < DETAIL_TH[1] ? 2 : (vb.w < DETAIL_TH[0] ? 1 : 0);
+  svg._details.forEach(function(g){
+    g.style.display = (parseInt(g.getAttribute("data-tier"),10)<=level) ? "" : "none";
+  });
 }
 function coastLayer(svg){
   COASTS.forEach(function(c,idx){
@@ -535,7 +607,7 @@ function renderMap(container, mode, dayNo){
   compass(svg);
   container.innerHTML="";
   container.appendChild(svg);
-  if(mode==="overview") attachZoom(svg, container);
+  if(mode==="overview"){ detailsLayer(svg); scaleBarGroup(svg); attachZoom(svg, container); }
 }
 function attachZoom(svg, wrap){
   var base=(""+svg.getAttribute("viewBox")).split(/\s+/).map(Number);
@@ -544,6 +616,11 @@ function attachZoom(svg, wrap){
   var pinch=null, dragStart=null, lastTap=0, lastZoomTs=0;
   function setVB(){
     svg.setAttribute("viewBox",[Math.round(vb.x),Math.round(vb.y),Math.round(vb.w),Math.round(vb.h)].join(" "));
+  }
+  function refresh(){
+    setVB();
+    updateScaleBar(svg, vb);
+    updateDetails(svg, vb);
   }
   function clamp(){
     if(vb.w>base[2]){ vb.w=base[2]; vb.h=base[3]; }
@@ -566,14 +643,14 @@ function attachZoom(svg, wrap){
       vb.x=p.x-(p.x-vb.x)*r; vb.y=p.y-(p.y-vb.y)*r;
       vb.w=nw; vb.h=nh;
     }
-    clamp(); setVB();
+    clamp(); refresh();
   }
   function panBy(dx,dy){
     if(!svg.getBoundingClientRect) return;
     var r=svg.getBoundingClientRect();
     if(!r.width||!r.height) return;
     vb.x-=dx/r.width*vb.w; vb.y-=dy/r.height*vb.h;
-    clamp(); setVB();
+    clamp(); refresh();
   }
   function end(){ pinch=null; dragStart=null; svg.classList.remove("grabbing"); }
   svg.addEventListener("dblclick",function(e){
@@ -624,7 +701,7 @@ function attachZoom(svg, wrap){
         var nw=Math.max(minW,Math.min(base[2],vb.w*d/pinch.d));
         var nh=nw*base[3]/base[2], r=nw/vb.w;
         vb.x=p.x-(p.x-vb.x)*r; vb.y=p.y-(p.y-vb.y)*r;
-        vb.w=nw; vb.h=nh; clamp(); setVB();
+        vb.w=nw; vb.h=nh; clamp(); refresh();
       }
     }else if(dragStart&&e.touches.length===1){
       var t2=e.touches[0];
@@ -639,8 +716,9 @@ function attachZoom(svg, wrap){
   btn.setAttribute("type","button");
   btn.setAttribute("class","zoombtn");
   btn.textContent="✕ 复位";
-  btn.addEventListener("click",function(){ vb={x:base[0],y:base[1],w:base[2],h:base[3]}; clamp(); setVB(); });
+  btn.addEventListener("click",function(){ vb={x:base[0],y:base[1],w:base[2],h:base[3]}; clamp(); refresh(); });
   wrap.appendChild(btn);
+  refresh();
 }
 
 /* ---------- 预订 ---------- */
