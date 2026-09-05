@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fdf6e3">
-<title>澳新 112 天 · 4 人旅行手册</title>
+<title>澳新 12 天 · 4 人旅行手册</title>
 <style>
 :root{
   --bg:#fbf3e2; --bg2:#f3e8cb; --card:#fffdf5; --ink:#2b2013; --muted:#7f7257;
@@ -120,7 +120,7 @@ footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color
 <body>
 
 <header id="topbar">
-  <b>🌏 澳新 112 天 · 4 人手册</b>
+  <b>🌏 澳新 12 天 · 4 人手册</b>
   <div id="nowclock"><span class="tm tnum" id="clockTime">–:–:–</span><br><span id="clockTz"></span></div>
 </header>
 
@@ -189,7 +189,7 @@ footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color
 var SAMPLE_MODE = false;
 
 var META = {
-  title: "澳新 112 天 · 4 人 · 第 1 段：墨尔本→悉尼→新西兰南岛 (9/25–10/6)",
+  title: "澳新 12 天 · 4 人旅行手册 (9/25–10/6)",
   endIso: "2026-10-06T15:00:00+13:00"
 };
 
@@ -197,8 +197,8 @@ function loc(name, lat, lng){ return {name:name, lat:lat, lng:lng}; }
 
 var DAYS = [
   {day:1, date:"2026-09-25", tz:"Australia/Melbourne", off:"+10:00", tzLabel:"墨尔本 AEST(+10)",
-   home:loc("墨尔本 · 市中心", -37.8136, 144.9631),
-   note:"🏠 住宿待确认（可住 CBD 弗林德斯街一带，步行方便）",
+   home:loc("墨尔本 · Hyatt Place Essendon Fields", -37.7259, 144.8828),
+   note:"🏠 住宿已确认：Hyatt Place Melbourne Essendon Fields（1 English St, Essendon Fields VIC 3041）",
    events:[
      {t:"2026-09-25T08:30:00+10:00", title:"✈️ VN781 抵达墨尔本", detail:"越南航空 VN525+VN781 联程到达。出发段（广州→河内）时刻待你发机票截图确认", place:loc("墨尔本机场 T2 国际到达", -37.6709, 144.8423)},
      {title:"🚶 联邦广场 + 弗林德斯街车站", detail:"市中心地标打卡", place:loc("联邦广场", -37.8175, 144.9685)},
@@ -224,15 +224,15 @@ var DAYS = [
   },
   {day:4, date:"2026-09-28", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("凯库拉 · 170 Esplanade 民宿", -42.3997, 173.6855),
-   note:"✈️ EK412 悉尼→基督城（时刻待截图）→ 取车自驾约 2.5h 到凯库拉；🏠 住宿待确认",
+   note:"✈️ EK412 悉尼→基督城（时刻待截图）→ 16:00 取车自驾约 2.5h 到凯库拉；🏠 住宿已确认（170 Esplanade）",
    events:[
      {title:"✈️ 阿联酋航空 EK412 · 悉尼→基督城", detail:"飞行约 3.5h，悉尼与基督城时差 3h，起飞时刻待截图", place:loc("悉尼机场 T1 国际", -33.9415, 151.176)},
-     {title:"🚗 基督城机场取车 → 自驾凯库拉", detail:"约 2.5h 沿海公路，注意靠左行驶", place:loc("基督城机场租车中心", -43.4906, 172.5346)},
+     {title:"🚗 16:00 基督城机场取车 → 自驾凯库拉", detail:"约 2.5h 沿海公路，注意靠左行驶", place:loc("基督城机场租车中心", -43.4906, 172.5346)},
      {title:"🌊 凯库拉海滨漫步 + 半岛观景", detail:"傍晚石滩散步，处处海豹", place:loc("凯库拉小镇", -42.4005, 173.6813)}]
   },
   {day:5, date:"2026-09-29", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("凯库拉 · 170 Esplanade 民宿", -42.3997, 173.6855),
-   note:"🎣 海钓/皮划艇都需提前预订；🏠 住宿待确认",
+   note:"🎣 海钓/皮划艇都需提前预订；🏠 住宿已确认（170 Esplanade，连续 2 晚）",
    events:[
      {title:"🎣 深海海钓（上午）", detail:"建议提前订船，注意晕浪", book:true, place:loc("凯库拉码头", -42.4001, 173.6796)},
      {title:"🛶 海上皮划艇（下午）", detail:"沿海岸滑行，可遇海豚海豹", book:true, place:loc("凯库拉半岛", -42.4236, 173.6935)}]
@@ -285,7 +285,7 @@ var DAYS = [
    home:loc("基督城 · 返程", -43.489, 172.532),
    note:"⏰ 皇后镇→基督城约 6h，建议 10:00 前出发，赶 NZ566 18:10 航班；下午还车",
    events:[
-     {title:"🚗 自驾回基督城并还车", detail:"约 6h，建议 7:30 前出发", place:loc("基督城机场", -43.489, 172.532)},
+     {title:"🚗 16:00 前还车 → 自驾回基督城", detail:"皇后镇→基督城约 6h，建议 10:00 前出发", place:loc("基督城机场", -43.489, 172.532)},
      {t:"2026-10-06T18:10:00+13:00", title:"✈️ NZ566 新西兰航空 · 基督城出发", detail:"离开新西兰，航班号已确认", place:loc("基督城机场 国际出发", -43.489, 172.532)}]
   }
 ];
@@ -295,6 +295,9 @@ var BOOKINGS = [
    when:[{t:"2026-09-25T08:30:00+10:00", tz:"Australia/Melbourne", tzLabel:"墨尔本 AEST(+10)"}],
    addr:"墨尔本机场 T2 国际到达", map:loc("墨尔本机场 T2", -37.6709, 144.8423),
    phone:"", note:"行程锚点。出发段（广州→河内等）起飞时刻待你发机票截图确认"},
+  {icon:"🏨", kind:"酒店", title:"Hyatt Place Melbourne Essendon Fields",
+   when:null, addr:"1 English St, Essendon Fields VIC 3041", map:loc("Hyatt Place Melbourne", -37.7259, 144.8828),
+   phone:"", note:"9月25日入住 → 9月26日退房，共 1 晚"},
   {icon:"✈️", kind:"机票", title:"澳航 QF434 · 墨尔本→悉尼",
    when:null, addr:"墨尔本机场 T1（澳航国内）", map:loc("墨尔本机场 T1", -37.6663, 144.8288),
    phone:"", note:"9月26日 · 起飞时刻待截图确认"},
@@ -304,9 +307,11 @@ var BOOKINGS = [
   {icon:"🏨", kind:"酒店", title:"Mercure Sydney（悉尼美居酒店）",
    when:null, addr:"818-820 George St, Chippendale NSW 2008", map:loc("Mercure Sydney", -33.8822, 151.2062),
    phone:"", note:"9月26日入住 → 9月28日退房，共 2 晚（下午 14:00 后可 check-in）"},
-  {icon:"🚗", kind:"租车", title:"基督城机场租车 · 南岛自驾",
-   when:null, addr:"基督城机场租车中心", map:loc("基督城机场租车中心", -43.4906, 172.5346),
-   phone:"", note:"9月28日取车 → 10月6日还车；车型/柜台/保险待截图确认"},
+  {icon:"🚗", kind:"租车", title:"丰田 RAV4 · 基督城取还",
+   when:[{t:"2026-09-28T16:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"取车 NZDT(+13)"},
+         {t:"2026-10-06T16:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"还车 NZDT(+13)"}],
+   addr:"基督城机场租车中心", map:loc("基督城机场租车中心", -43.4906, 172.5346),
+   phone:"", note:"9/28 16:00 取车 → 10/6 16:00 还车；丰田 RAV4（含全险）"},
   {icon:"🏡", kind:"民宿", title:"凯库拉 · 170 Esplanade",
    when:null, addr:"170 Esplanade, Kaikoura", map:loc("170 Esplanade Kaikoura", -42.3997, 173.6855),
    phone:"", note:"9月28日入住 → 9月30日退房，共 2 晚"},
