@@ -207,9 +207,9 @@ var DAYS = [
   },
   {day:2, date:"2026-09-26", tz:"Australia/Sydney", off:"+10:00", tzLabel:"悉尼 AEST(+10)",
    home:loc("悉尼 · Mercure Sydney 美居酒店", -33.8822, 151.2062),
-   note:"✈️ 今天 QF434 飞悉尼（时刻待截图）；🏠 住 Mercure Sydney（818-820 George St, Chippendale）",
+   note:"✈️ QF434 10:00–11:30 飞悉尼；🏠 住 Mercure Sydney（818-820 George St, Chippendale）",
    events:[
-     {title:"✈️ 澳航 QF434 · 墨尔本→悉尼", detail:"飞行约 1.5h，起飞时刻待你发截图确认", place:loc("墨尔本机场 T1（澳航）", -37.6663, 144.8288)},
+     {t:"2026-09-26T10:00:00+10:00", title:"✈️ 澳航 QF434 · 墨尔本→悉尼", detail:"10:00–11:30，墨尔本 T1 → 悉尼 T3", place:loc("墨尔本机场 T1（澳航）", -37.6663, 144.8288)},
      {title:"🚶 环形码头 + 岩石区", detail:"悉尼湾地标区", place:loc("环形码头", -33.8587, 151.2105)},
      {title:"🌇 悉尼海港沿岸落日", detail:"海港大桥至植物园一线", place:loc("悉尼海港", -33.858, 151.214)}]
   },
@@ -224,9 +224,9 @@ var DAYS = [
   },
   {day:4, date:"2026-09-28", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("凯库拉 · 170 Esplanade 民宿", -42.3997, 173.6855),
-   note:"✈️ EK412 悉尼→基督城（时刻待截图）→ 16:00 取车自驾约 2.5h 到凯库拉；🏠 住宿已确认（170 Esplanade）",
+   note:"✈️ EK412 07:50–13:55 → 16:00 取车自驾约 2.5h 到凯库拉；🏠 住宿已确认（170 Esplanade）",
    events:[
-     {title:"✈️ 阿联酋航空 EK412 · 悉尼→基督城", detail:"飞行约 3.5h，悉尼与基督城时差 3h，起飞时刻待截图", place:loc("悉尼机场 T1 国际", -33.9415, 151.176)},
+     {t:"2026-09-28T07:50:00+10:00", title:"✈️ 阿联酋航空 EK412 · 悉尼→基督城", detail:"07:50–13:55，悉尼 T1 → 基督城国际（飞行约 3.5h）", place:loc("悉尼机场 T1 国际", -33.9415, 151.176)},
      {title:"🚗 16:00 基督城机场取车 → 自驾凯库拉", detail:"约 2.5h 沿海公路，注意靠左行驶", place:loc("基督城机场租车中心", -43.4906, 172.5346)},
      {title:"🌊 凯库拉海滨漫步 + 半岛观景", detail:"傍晚石滩散步，处处海豹", place:loc("凯库拉小镇", -42.4005, 173.6813)}]
   },
@@ -235,7 +235,7 @@ var DAYS = [
    note:"🎣 海钓/皮划艇都需提前预订；🏠 住宿已确认（170 Esplanade，连续 2 晚）",
    events:[
      {title:"🎣 深海海钓（上午）", detail:"建议提前订船，注意晕浪", book:true, place:loc("凯库拉码头", -42.4001, 173.6796)},
-     {title:"🛶 海上皮划艇（下午）", detail:"沿海岸滑行，可遇海豚海豹", book:true, place:loc("凯库拉半岛", -42.4236, 173.6935)}]
+     {title:"🛶 海上皮划艇（下午）", detail:"沿海岸滑行，可遇海豚海豹（已预订）", place:loc("凯库拉半岛", -42.4236, 173.6935)}]
   },
   {day:6, date:"2026-09-30", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("Lake Opuha · 1323 Clayton Rd 露营区", -44.0960, 171.0789),
@@ -249,7 +249,7 @@ var DAYS = [
    home:loc("Twizel · 9 Huxley Terrace", -44.0933, 170.4793),
    note:"🚗 蒂卡普→库克山约 1h；冰川船+步道都要早出发；🏠 住宿已确认（Twizel）",
    events:[
-     {title:"🛶 塔斯曼冰川湖游船（上午）", detail:"终端湖看冰山漂浮，务必提前预订", book:true, place:loc("塔斯曼冰川湖码头", -43.7039, 170.153)},
+     {title:"🛶 塔斯曼冰川湖游船（上午）", detail:"终端湖看冰山漂浮（已预订）", place:loc("塔斯曼冰川湖码头", -43.7039, 170.153)},
      {title:"🥾 Hooker Valley 步道（下午）", detail:"胡克尔湖往返约 3h", place:loc("Hooker Valley Track", -43.7297, 170.0765)}]
   },
   {day:8, date:"2026-10-02", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
@@ -272,14 +272,14 @@ var DAYS = [
    events:[
      {title:"🚗 自驾至皇后镇", detail:"瓦卡蒂普湖沿线风景道", place:loc("皇后镇", -45.0312, 168.6626)},
      {title:"🦌 Deer Park Heights", detail:"喂食动物+俯瞰峡谷，提前查开放", place:loc("Deer Park Heights", -45.027, 168.652)},
-     {title:"🚠 天空缆车 + 高山滑板（卢奇）", detail:"俯瞰瓦卡蒂普湖，热季建议提前订票", book:true, place:loc("天空缆车", -45.0333, 168.6617)}]
+     {title:"🚠 天空缆车 + 高山滑板（卢奇）", detail:"俯瞰瓦卡蒂普湖（已预订）", place:loc("天空缆车", -45.0333, 168.6617)}]
   },
   {day:11, date:"2026-10-05", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("皇后镇", -45.0312, 168.6626),
    note:"🏹 打猎体验需联系当地运营商确认人数/资质/保险；🏠 住宿已确认（51 Thompson St，连续 2 晚）",
    events:[
      {title:"🥾 皇后镇山步道（上午）", detail:"俯瞰全城湖泊，往返约 2–3h", place:loc("Queenstown Hill Track", -45.0289, 168.6702)},
-     {title:"🏹 高产地打猎体验（下午）", detail:"向导带领，需提前预约并确认要求", book:true, place:loc("皇后镇周边高地", -45.01, 168.63)}]
+     {title:"🏹 高产地打猎体验（下午）", detail:"向导带领（已预订）", place:loc("皇后镇周边高地", -45.01, 168.63)}]
   },
   {day:12, date:"2026-10-06", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("基督城 · 返程", -43.489, 172.532),
@@ -298,12 +298,14 @@ var BOOKINGS = [
   {icon:"🏨", kind:"酒店", title:"Hyatt Place Melbourne Essendon Fields",
    when:null, addr:"1 English St, Essendon Fields VIC 3041", map:loc("Hyatt Place Melbourne", -37.7259, 144.8828),
    phone:"", note:"9月25日入住 → 9月26日退房，共 1 晚"},
-  {icon:"✈️", kind:"机票", title:"澳航 QF434 · 墨尔本→悉尼",
-   when:null, addr:"墨尔本机场 T1（澳航国内）", map:loc("墨尔本机场 T1", -37.6663, 144.8288),
-   phone:"", note:"9月26日 · 起飞时刻待截图确认"},
-  {icon:"✈️", kind:"机票", title:"阿联酋航空 EK412 · 悉尼→基督城",
-   when:null, addr:"悉尼机场 T1 国际出发", map:loc("悉尼机场 T1", -33.9415, 151.176),
-   phone:"", note:"9月28日 · 起飞时刻待截图确认"},
+  {icon:"✈️", kind:"机票", title:"澳航 QF434 · 墨尔本 T1 → 悉尼 T3",
+   when:[{t:"2026-09-26T10:00:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
+   addr:"墨尔本机场 T1 → 悉尼 T3", map:loc("墨尔本机场 T1", -37.6663, 144.8288),
+   phone:"", note:"10:00–11:30"},
+  {icon:"✈️", kind:"机票", title:"阿联酋航空 EK412 · 悉尼 T1 → 基督城",
+   when:[{t:"2026-09-28T07:50:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
+   addr:"悉尼机场 T1 → 基督城国际", map:loc("悉尼机场 T1", -33.9415, 151.176),
+   phone:"", note:"07:50–13:55（悉尼+10 → 新西兰+13）"},
   {icon:"🏨", kind:"酒店", title:"Mercure Sydney（悉尼美居酒店）",
    when:null, addr:"818-820 George St, Chippendale NSW 2008", map:loc("Mercure Sydney", -33.8822, 151.2062),
    phone:"", note:"9月26日入住 → 9月28日退房，共 2 晚（下午 14:00 后可 check-in）"},
@@ -338,12 +340,9 @@ var TODOS = [
   "🛡 买保险：4 人境外旅行险（覆盖海钓 / 皮划艇 / 徒步）",
   "🚗 租车凭证打印 + 中国驾照及翻译认证件（基督城机场取车）",
   "🎣 预订：凯库拉深海海钓船",
-  "🛶 预订：凯库拉海上皮划艇",
   "🌌 预订：蒂卡普湖观星团（Dark Sky）",
-  "🏔 预订：塔斯曼冰川湖游船",
-  "🚠 皇后镇天空缆车 + 卢奇票（热季建议提前）",
-  "🏹 皇后镇高产地打猎体验：联系运营商确认人数 / 资质 / 保险",
-  "🏨 全线住宿待落实（逐日行程已标每城）",
+  "✅ 皮划艇 / 冰川船 / 缆车 / 打猎 — 已预订确认",
+  "✅ 全线住宿已落实",
   "📶 eSIM / 本地卡 + Google 地图南岛离线包（山区无信号）",
   "🏦 换少量纽元现金，报备境外大额刷卡"
 ];
