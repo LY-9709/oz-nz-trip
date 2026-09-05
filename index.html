@@ -194,7 +194,7 @@ var SAMPLE_MODE = false;
 
 var META = {
   title: "澳新 12 天 · 4 人旅行手册 (9/25–10/6)",
-  endIso: "2026-10-06T15:00:00+13:00"
+  endIso: "2026-10-06T15:30:00+13:00"
 };
 
 function loc(name, lat, lng){ return {name:name, lat:lat, lng:lng}; }
@@ -287,10 +287,10 @@ var DAYS = [
   },
   {day:12, date:"2026-10-06", tz:"Pacific/Auckland", off:"+13:00", tzLabel:"新西兰 NZDT(+13)",
    home:loc("基督城 · 返程", -43.489, 172.532),
-   note:"⏰ 皇后镇→基督城约 6h，建议 10:00 前出发，赶 NZ566 18:10 航班；下午还车",
-   events:[
-     {title:"🚗 16:00 前还车 → 自驾回基督城", detail:"皇后镇→基督城约 6h，建议 10:00 前出发", place:loc("基督城机场", -43.489, 172.532)},
-     {t:"2026-10-06T18:10:00+13:00", title:"✈️ NZ566 新西兰航空 · 基督城出发", detail:"离开新西兰，航班号已确认", place:loc("基督城机场 国际出发", -43.489, 172.532)}]
+   note:"⏰ 皇后镇→基督城约 6h，建议 10:00 前出发，赶 NZ566 15:30 航班；14:00 前须还车",
+    events:[
+      {title:"🚗 14:00 前还车 → 自驾回基督城", detail:"皇后镇→基督城约 6h，建议 10:00 前出发；还车后办理国际航班值机", place:loc("基督城机场", -43.489, 172.532)},
+      {t:"2026-10-06T15:30:00+13:00", title:"✈️ NZ566 新西兰航空 · 基督城出发", detail:"离开新西兰，航班号已确认", place:loc("基督城机场 国际出发", -43.489, 172.532)}]
   }
 ];
 
@@ -317,9 +317,9 @@ var BOOKINGS = [
    phone:"", note:"9月26日入住 → 9月28日退房，共 2 晚（下午 14:00 后可 check-in）"},
   {icon:"🚗", kind:"租车", title:"丰田 RAV4 · 基督城取还",
    when:[{t:"2026-09-28T16:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"取车 NZDT(+13)"},
-         {t:"2026-10-06T16:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"还车 NZDT(+13)"}],
-   addr:"基督城机场租车中心", map:loc("基督城机场租车中心", -43.4906, 172.5346),
-   phone:"", note:"9/28 16:00 取车 → 10/6 16:00 还车；丰田 RAV4（含全险）"},
+         {t:"2026-10-06T14:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"还车 NZDT(+13)"}],
+    addr:"基督城机场租车中心", map:loc("基督城机场租车中心", -43.4906, 172.5346),
+    phone:"", note:"9/28 16:00 取车 → 10/6 14:00 还车；丰田 RAV4（含全险）"},
   {icon:"🏡", kind:"民宿", title:"凯库拉 · 170 Esplanade",
    when:[{t:"2026-09-28T18:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
    addr:"170 Esplanade, Kaikoura", map:loc("170 Esplanade Kaikoura", -42.3997, 173.6855),
@@ -341,9 +341,9 @@ var BOOKINGS = [
    addr:"51 Thompson Street, Queenstown, Otago 9300", map:loc("51 Thompson Street Queenstown", -45.0312, 168.6626),
    phone:"", note:"10月4日入住 → 10月6日退房，共 2 晚"},
   {icon:"✈️", kind:"回程航班", title:"NZ566 新西兰航空 · 基督城出发",
-   when:[{t:"2026-10-06T18:10:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
-   addr:"基督城机场 国际出发", map:loc("基督城机场", -43.489, 172.532),
-   phone:"", note:"10月6日 18:10 起飞（NZ566）"}
+   when:[{t:"2026-10-06T15:30:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+    addr:"基督城机场 国际出发", map:loc("基督城机场", -43.489, 172.532),
+    phone:"", note:"10月6日 15:30 起飞（NZ566）"}
 ];
 
 var TODOS = [
