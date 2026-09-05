@@ -127,9 +127,9 @@ footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color
 <nav id="chips">
   <a class="chip" href="#sec-now">此刻关注</a>
   <a class="chip" href="#sec-map">总览地图</a>
-  <a class="chip" href="#sec-book">已确认预订</a>
   <a class="chip" href="#sec-days">逐日行程</a>
   <a class="chip" href="#sec-todo">待办清单</a>
+  <a class="chip" href="#sec-book">已确认预订</a>
   <a class="chip" href="#sec-tips">实用贴士</a>
 </nav>
 
@@ -149,11 +149,6 @@ footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color
     </div>
   </section>
 
-  <section class="sec" id="sec-book">
-    <h2>✅ 已确认的预订 <span class="en">BOOKED</span></h2>
-    <div class="card"><div class="rows" id="bookRows"></div></div>
-  </section>
-
   <section class="sec" id="sec-days">
     <h2>📅 逐日行程 <span class="en">ITINERARY</span></h2>
     <div style="text-align:right;margin:8px 0 2px"><button class="gbtn" id="btnExpand" type="button">全部展开 / 收起</button></div>
@@ -166,6 +161,11 @@ footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color
       <ol class="todo" id="todoList"></ol>
       <div class="todonote">说明：做成纯列表，不做勾选框——勾选只存在各自的浏览器里，多人看到的会不一样。办完一项告诉我，我更新页面。</div>
     </div>
+  </section>
+
+  <section class="sec" id="sec-book">
+    <h2>✅ 已确认的预订 <span class="en">BOOKED</span></h2>
+    <div class="card"><div class="rows" id="bookRows"></div></div>
   </section>
 
   <section class="sec" id="sec-tips">
@@ -296,7 +296,8 @@ var BOOKINGS = [
    addr:"墨尔本机场 T2 国际到达", map:loc("墨尔本机场 T2", -37.6709, 144.8423),
    phone:"", note:"行程锚点。出发段（广州→河内等）起飞时刻待你发机票截图确认"},
   {icon:"🏨", kind:"酒店", title:"Hyatt Place Melbourne Essendon Fields",
-   when:null, addr:"1 English St, Essendon Fields VIC 3041", map:loc("Hyatt Place Melbourne", -37.7259, 144.8828),
+   when:[{t:"2026-09-25T14:00:00+10:00", tz:"Australia/Melbourne", tzLabel:"墨尔本 AEST(+10)"}],
+   addr:"1 English St, Essendon Fields VIC 3041", map:loc("Hyatt Place Melbourne", -37.7259, 144.8828),
    phone:"", note:"9月25日入住 → 9月26日退房，共 1 晚"},
   {icon:"✈️", kind:"机票", title:"澳航 QF434 · 墨尔本 T1 → 悉尼 T3",
    when:[{t:"2026-09-26T10:00:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
@@ -307,7 +308,8 @@ var BOOKINGS = [
    addr:"悉尼机场 T1 → 基督城国际", map:loc("悉尼机场 T1", -33.9415, 151.176),
    phone:"", note:"07:50–13:55（悉尼+10 → 新西兰+13）"},
   {icon:"🏨", kind:"酒店", title:"Mercure Sydney（悉尼美居酒店）",
-   when:null, addr:"818-820 George St, Chippendale NSW 2008", map:loc("Mercure Sydney", -33.8822, 151.2062),
+   when:[{t:"2026-09-26T14:00:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
+   addr:"818-820 George St, Chippendale NSW 2008", map:loc("Mercure Sydney", -33.8822, 151.2062),
    phone:"", note:"9月26日入住 → 9月28日退房，共 2 晚（下午 14:00 后可 check-in）"},
   {icon:"🚗", kind:"租车", title:"丰田 RAV4 · 基督城取还",
    when:[{t:"2026-09-28T16:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"取车 NZDT(+13)"},
@@ -315,19 +317,24 @@ var BOOKINGS = [
    addr:"基督城机场租车中心", map:loc("基督城机场租车中心", -43.4906, 172.5346),
    phone:"", note:"9/28 16:00 取车 → 10/6 16:00 还车；丰田 RAV4（含全险）"},
   {icon:"🏡", kind:"民宿", title:"凯库拉 · 170 Esplanade",
-   when:null, addr:"170 Esplanade, Kaikoura", map:loc("170 Esplanade Kaikoura", -42.3997, 173.6855),
+   when:[{t:"2026-09-28T18:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+   addr:"170 Esplanade, Kaikoura", map:loc("170 Esplanade Kaikoura", -42.3997, 173.6855),
    phone:"", note:"9月28日入住 → 9月30日退房，共 2 晚"},
   {icon:"🏕", kind:"露营区", title:"Lake Opuha · 1323 Clayton Road",
-   when:null, addr:"1323 Clayton Road, Canterbury 7987", map:loc("Lake Opuha", -44.0960, 171.0789),
+   when:[{t:"2026-09-30T14:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+   addr:"1323 Clayton Road, Canterbury 7987", map:loc("Lake Opuha", -44.0960, 171.0789),
    phone:"", note:"9月30日入住 → 10月1日退房，共 1 晚"},
   {icon:"🏡", kind:"民宿", title:"Twizel · 9 Huxley Terrace",
-   when:null, addr:"9 Huxley Terrace, Twizel, Canterbury 9412", map:loc("9 Huxley Terrace Twizel", -44.0933, 170.4793),
+   when:[{t:"2026-10-01T14:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+   addr:"9 Huxley Terrace, Twizel, Canterbury 9412", map:loc("9 Huxley Terrace Twizel", -44.0933, 170.4793),
    phone:"", note:"10月1日入住 → 10月3日退房，共 2 晚"},
   {icon:"🏡", kind:"独栋", title:"Wānaka · 461 Aubrey Road",
-   when:null, addr:"461 Aubrey Road, Wānaka, Otago 9305", map:loc("461 Aubrey Road Wānaka", -44.6880, 169.2807),
+   when:[{t:"2026-10-03T14:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+   addr:"461 Aubrey Road, Wānaka, Otago 9305", map:loc("461 Aubrey Road Wānaka", -44.6880, 169.2807),
    phone:"", note:"10月3日入住 → 10月4日退房，共 1 晚"},
   {icon:"🏡", kind:"民宿", title:"皇后镇 · 51 Thompson Street",
-   when:null, addr:"51 Thompson Street, Queenstown, Otago 9300", map:loc("51 Thompson Street Queenstown", -45.0312, 168.6626),
+   when:[{t:"2026-10-04T14:00:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
+   addr:"51 Thompson Street, Queenstown, Otago 9300", map:loc("51 Thompson Street Queenstown", -45.0312, 168.6626),
    phone:"", note:"10月4日入住 → 10月6日退房，共 2 晚"},
   {icon:"✈️", kind:"回程航班", title:"NZ566 新西兰航空 · 基督城出发",
    when:[{t:"2026-10-06T18:10:00+13:00", tz:"Pacific/Auckland", tzLabel:"新西兰 NZDT(+13)"}],
