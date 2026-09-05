@@ -61,6 +61,9 @@ body.night #banner{background:#3a2f12;border-color:#6b5215;color:#e8d9a8}
 .mapwrap svg{display:block;width:100%;height:auto}
 .mapwrap svg .mlbl{font:600 11.5px system-ui,sans-serif;fill:var(--muted)}
 .mapwrap svg .mlbl b{font-weight:800}
+#mapBig svg{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+#mapBig svg.grabbing{cursor:grabbing}
+#mapBig .zoombtn{position:absolute;top:10px;left:10px;z-index:4;font:600 12px system-ui,sans-serif;color:#fff;background:rgba(31,47,82,.85);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 12px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.2)}
 .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .legend{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
 .legend .lg{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;display:inline-flex;align-items:center}
@@ -532,6 +535,112 @@ function renderMap(container, mode, dayNo){
   compass(svg);
   container.innerHTML="";
   container.appendChild(svg);
+  if(mode==="overview") attachZoom(svg, container);
+}
+function attachZoom(svg, wrap){
+  var base=(""+svg.getAttribute("viewBox")).split(/\s+/).map(Number);
+  var vb={x:base[0],y:base[1],w:base[2],h:base[3]};
+  var minW=Math.max(50,base[2]/8), minH=minW*base[3]/base[2];
+  var pinch=null, dragStart=null, lastTap=0, lastZoomTs=0;
+  function setVB(){
+    svg.setAttribute("viewBox",[Math.round(vb.x),Math.round(vb.y),Math.round(vb.w),Math.round(vb.h)].join(" "));
+  }
+  function clamp(){
+    if(vb.w>base[2]){ vb.w=base[2]; vb.h=base[3]; }
+    if(vb.w<minW){ vb.w=minW; vb.h=minH; }
+    if(vb.x<base[0]) vb.x=base[0];
+    if(vb.y<base[1]) vb.y=base[1];
+    if(vb.x>base[0]+base[2]-vb.w) vb.x=base[0]+base[2]-vb.w;
+    if(vb.y>base[1]+base[3]-vb.h) vb.y=base[1]+base[3]-vb.h;
+  }
+  function toXY(cx,cy){
+    var r=svg.getBoundingClientRect();
+    return {x:vb.x+(cx-r.left)/r.width*vb.w, y:vb.y+(cy-r.top)/r.height*vb.h};
+  }
+  function zoomBy(f,cx,cy){
+    var p=toXY(cx,cy);
+    var nw=vb.w/f, nh=vb.h/f;
+    if(nw>base[2]+0.5 || nw<minW-0.5){ vb={x:base[0],y:base[1],w:base[2],h:base[3]}; }
+    else{
+      var r=nw/vb.w;
+      vb.x=p.x-(p.x-vb.x)*r; vb.y=p.y-(p.y-vb.y)*r;
+      vb.w=nw; vb.h=nh;
+    }
+    clamp(); setVB();
+  }
+  function panBy(dx,dy){
+    if(!svg.getBoundingClientRect) return;
+    var r=svg.getBoundingClientRect();
+    if(!r.width||!r.height) return;
+    vb.x-=dx/r.width*vb.w; vb.y-=dy/r.height*vb.h;
+    clamp(); setVB();
+  }
+  function end(){ pinch=null; dragStart=null; svg.classList.remove("grabbing"); }
+  svg.addEventListener("dblclick",function(e){
+    if(+new Date()-lastZoomTs<500) return;
+    if(e.preventDefault) e.preventDefault();
+    zoomBy(1.8,e.clientX,e.clientY);
+  });
+  svg.addEventListener("wheel",function(e){
+    if(e.preventDefault) e.preventDefault();
+    zoomBy(e.deltaY<0?1.3:0.77,e.clientX,e.clientY);
+  },{passive:false});
+  svg.addEventListener("mousedown",function(e){
+    dragStart={x:e.clientX,y:e.clientY};
+    svg.classList.add("grabbing");
+    if(e.preventDefault) e.preventDefault();
+  });
+  svg.addEventListener("mousemove",function(e){
+    if(!dragStart) return;
+    panBy(e.clientX-dragStart.x,e.clientY-dragStart.y);
+    dragStart.x=e.clientX; dragStart.y=e.clientY;
+  });
+  svg.addEventListener("mouseup",end);
+  svg.addEventListener("mouseleave",end);
+  svg.addEventListener("touchstart",function(e){
+    var t=e.touches;
+    if(t.length===2){
+      pinch={d:Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)};
+      return;
+    }
+    if(t.length===1){
+      var now=+new Date();
+      if(now-lastTap<320){
+        lastTap=0; lastZoomTs=+new Date();
+        zoomBy(1.8,t[0].clientX,t[0].clientY);
+        return;
+      }
+      lastTap=now;
+      dragStart={x:t[0].clientX,y:t[0].clientY};
+    }
+    if(e.cancelable) e.preventDefault();
+  },{passive:false});
+  svg.addEventListener("touchmove",function(e){
+    if(pinch&&e.touches.length===2){
+      var t=e.touches;
+      var mx=(t[0].clientX+t[1].clientX)/2, my=(t[0].clientY+t[1].clientY)/2;
+      var p=toXY(mx,my), d=Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+      if(d>0){
+        var nw=Math.max(minW,Math.min(base[2],vb.w*d/pinch.d));
+        var nh=nw*base[3]/base[2], r=nw/vb.w;
+        vb.x=p.x-(p.x-vb.x)*r; vb.y=p.y-(p.y-vb.y)*r;
+        vb.w=nw; vb.h=nh; clamp(); setVB();
+      }
+    }else if(dragStart&&e.touches.length===1){
+      var t2=e.touches[0];
+      panBy(t2.clientX-dragStart.x,t2.clientY-dragStart.y);
+      dragStart.x=t2.clientX; dragStart.y=t2.clientY;
+    }
+    if(e.cancelable) e.preventDefault();
+  },{passive:false});
+  svg.addEventListener("touchend",end);
+  svg.addEventListener("touchcancel",end);
+  var btn=document.createElement("button");
+  btn.setAttribute("type","button");
+  btn.setAttribute("class","zoombtn");
+  btn.textContent="✕ 复位";
+  btn.addEventListener("click",function(){ vb={x:base[0],y:base[1],w:base[2],h:base[3]}; clamp(); setVB(); });
+  wrap.appendChild(btn);
 }
 
 /* ---------- 预订 ---------- */
@@ -669,6 +778,7 @@ function renderOverview(){
   legs.forEach(function(l){
     html+='<span class="lg"><span class="swatch" style="background:'+l.color+'"></span>第'+l.start+(l.end>l.start?"–"+l.end:"")+'天 '+(l.start===l.end? "夜宿":"连住")+' '+cityShort(l.to.name)+(l.from.name!==l.to.name? "（自 "+cityShort(l.from.name)+"）":"")+"</span>";
   });
+  html+='<span class="lg" style="opacity:.7">🔍 双击 / 双指缩放 · 拖动平移</span>';
   lg.innerHTML=html;
   var nt=document.getElementById("nightTable"), nh="";
   DAYS.forEach(function(d){
