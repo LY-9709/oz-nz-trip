@@ -870,7 +870,9 @@ function renderOverview(){
 function renderTodo(){
   var el=document.getElementById("todoList");
   el.innerHTML=TODOS.map(function(t){
-    return "<li>"+t.text+(t.link?' <a target="_blank" rel="noopener" href="'+t.link+'">去办理 ↗</a>':"")+"</li>";
+    var txt=typeof t==="string" ? t : (t.text||"");
+    var link=typeof t==="string" ? "" : (t.link||"");
+    return "<li>"+txt+(link?' <a target="_blank" rel="noopener" href="'+link+'">去办理 ↗</a>':"")+"</li>";
   }).join("");
 }
 function renderTips(){
