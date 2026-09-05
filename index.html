@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fdf6e3">
+<title>澳新 112 天 · 4 人旅行手册</title>
+<style>
+:root{
+  --bg:#fbf3e2; --bg2:#f3e8cb; --card:#fffdf5; --ink:#2b2013; --muted:#7f7257;
+  --line:#e2d5b4; --accent:#e2571f; --accent2:#1f7a8c;
+  --shadow:0 1px 2px rgba(120,80,0,.06),0 8px 24px rgba(120,80,0,.07);
+  --chip-bg:#f0e6c9;
+}
+body.night{
+  --bg:#0e1523; --bg2:#111b2e; --card:#16223a; --ink:#e9e3d3; --muted:#93a1bc;
+  --line:#26334d; --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 28px rgba(0,0,0,.35);
+  --chip-bg:#1b2942;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  transition:background .4s,color .4s}
+a{color:var(--accent2);text-decoration:none}
+main{max-width:780px;margin:0 auto;padding:0 14px 60px}
+h2{margin:0}
+.tnum{font-variant-numeric:tabular-nums}
+
+#topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+#topbar b{font-size:15px;white-space:nowrap}
+#nowclock{font-size:12px;color:var(--muted);text-align:right;line-height:1.35}
+#nowclock .tm{font-size:17px;color:var(--ink);font-weight:600}
+
+#chips{position:sticky;top:52px;z-index:10;display:flex;gap:6px;overflow-x:auto;padding:8px 14px;
+  -webkit-overflow-scrolling:touch;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);max-width:780px;margin:0 auto}
+.chip{flex:0 0 auto;font-size:13px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--ink);background:var(--chip-bg)}
+
+#banner{margin:12px auto 0;max-width:780px;padding:9px 13px;border-radius:12px;font-size:13px;
+  background:#fff3d6;border:1px solid #e8c96a;color:#6b5215}
+body.night #banner{background:#3a2f12;border-color:#6b5215;color:#e8d9a8}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+  padding:16px;margin:14px 0}
+.sec .card{margin-top:14px}
+.sec>h2{display:flex;align-items:center;gap:8px;font-size:17px;margin:22px 2px 4px}
+.sec>h2 .en{font-size:12px;color:var(--muted);letter-spacing:.05em}
+
+#nowcard{text-align:center;padding:20px 16px 18px;border-top:4px solid var(--accent)}
+#nowcard .when{font-size:13px;color:var(--muted);margin-bottom:2px}
+#nowcard .etitle{font-size:18px;font-weight:700;margin:2px 0 10px}
+#cd{display:flex;justify-content:center;gap:8px;margin:8px 0 6px}
+.cdbox{flex:1;max-width:110px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:8px 2px}
+.cdbox .n{font-size:clamp(30px,9vw,52px);font-weight:800;letter-spacing:.5px;line-height:1.05}
+.cdbox .l{font-size:12px;color:var(--muted)}
+#nowcard .ctx{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7}
+
+.mapwrap{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg2)}
+.mapwrap svg{display:block;width:100%;height:auto}
+.mapwrap svg .mlbl{font:600 11.5px system-ui,sans-serif;fill:var(--muted)}
+.mapwrap svg .mlbl b{font-weight:800}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.legend{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.legend .lg{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;display:inline-flex;align-items:center}
+.nighttable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.nighttable td{padding:5px 6px;border-bottom:1px dashed var(--line)}
+
+.rows .row{display:flex;gap:12px;padding:12px 2px;border-bottom:1px dashed var(--line)}
+.rows .row:last-child{border-bottom:none}
+.row .ico{flex:0 0 34px;height:34px;border-radius:10px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:18px}
+.row .body{flex:1;min-width:0}
+.row .rt{font-weight:700}
+.row .rd{font-size:13px;color:var(--muted);margin-top:2px}
+.row .rl{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5}
+.btnrow{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.gbtn{display:inline-flex;align-items:center;gap:4px;font-size:12px;border:1px solid var(--line);border-radius:999px;
+  padding:4px 10px;color:var(--ink);background:var(--bg2);cursor:pointer}
+.gbtn.nav{color:#fff;background:#1a73e8;border-color:#1a73e8}
+.badge{display:inline-block;font-size:11px;line-height:1;padding:3px 7px;border-radius:999px;margin-left:6px;vertical-align:2px}
+.badge.book{background:#fde7dd;color:#b23a0e;border:1px solid #f0b596}
+.badge.sample{background:#ebeff9;color:#3a5a8c;border:1px solid #bfd0e8}
+body.night .badge.book{background:#4a2414;color:#ffb38f;border-color:#7a3d1a}
+body.night .badge.sample{background:#1f2b40;color:#a9c1ea;border-color:#32425f}
+
+details.day{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
+details.day>summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;align-items:center;gap:10px}
+details.day>summary::-webkit-details-marker{display:none}
+.ddot{flex:0 0 auto;width:12px;height:36px;border-radius:6px}
+.dnum{flex:0 0 auto;font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--muted)}
+.dt{flex:1;min-width:0;font-size:13px;line-height:1.45;color:var(--muted)}
+.dt b{color:var(--ink);font-size:15px;display:block}
+.chev{margin-left:auto;color:var(--muted);transition:transform .25s;font-size:14px;flex:0 0 auto}
+details.day[open] .chev{transform:rotate(180deg)}
+.dbody{padding:0 14px 14px}
+.timeline{border-left:2px solid var(--line);margin:6px 0 0 8px;padding-left:14px}
+.tl{position:relative;padding:10px 0}
+.tl::before{content:"";position:absolute;left:-20.5px;top:19px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--card)}
+.tl .tt{font-size:13px;color:var(--muted);font-weight:600}
+.tl .tr{font-size:15px;font-weight:700;margin-top:1px}
+.tl .td{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.55}
+
+ol.todo{list-style:none;padding:0;margin:4px 0 0;counter-reset:td}
+ol.todo li{counter-reset:none;counter-increment:td;position:relative;padding:9px 4px 9px 42px;border-bottom:1px dashed var(--line);font-size:14.5px}
+ol.todo li:before{content:counter(td);position:absolute;left:0;top:9px;width:26px;height:26px;border:1px solid var(--line);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+.todonote{font-size:12px;color:var(--muted);margin-top:8px}
+
+.tips{display:grid;grid-template-columns:1fr;gap:10px}
+.tip{display:flex;gap:10px;border:1px solid var(--line);border-radius:14px;padding:11px 13px;background:var(--card);box-shadow:var(--shadow)}
+.tip .ti{font-size:20px}
+.tip .th{font-weight:700;font-size:14.5px}
+.tip .tb{font-size:13px;color:var(--muted);margin-top:2px}
+
+footer{max-width:780px;margin:0 auto;padding:20px 14px 46px;font-size:12px;color:var(--muted);text-align:center;line-height:1.8}
+@media(min-width:640px){.tips{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <b>🌏 澳新 112 天 · 4 人手册</b>
+  <div id="nowclock"><span class="tm tnum" id="clockTime">–:–:–</span><br><span id="clockTz"></span></div>
+</header>
+
+<nav id="chips">
+  <a class="chip" href="#sec-now">此刻关注</a>
+  <a class="chip" href="#sec-map">总览地图</a>
+  <a class="chip" href="#sec-book">已确认预订</a>
+  <a class="chip" href="#sec-days">逐日行程</a>
+  <a class="chip" href="#sec-todo">待办清单</a>
+  <a class="chip" href="#sec-tips">实用贴士</a>
+</nav>
+
+<div id="banner">⚠ 当前为<b>预览示例数据</b>，用于展示页面效果。把机票 / 酒店 / 门票截图发给我、或直接留言改行程，我更新后推送一次即自动上线。</div>
+
+<main>
+
+  <section class="sec" id="sec-now">
+    <h2>⏱ 此刻关注 <span class="en">NOW</span></h2>
+    <div class="card" id="nowcard"></div>
+  </section>
+
+  <section class="sec" id="sec-map">
+    <h2>🗺 行程总览地图 <span class="en">MAP</span></h2>
+    <div class="card">
+      <div class="mapwrap" id="mapBig"></div>
+      <div class="legend" id="mapLegend"></div>
+      <table class="nighttable" id="nightTable"></table>
+    </div>
+  </section>
+
+  <section class="sec" id="sec-book">
+    <h2>✅ 已确认的预订 <span class="en">BOOKED</span></h2>
+    <div class="card"><div class="rows" id="bookRows"></div></div>
+  </section>
+
+  <section class="sec" id="sec-days">
+    <h2>📅 逐日行程 <span class="en">ITINERARY</span></h2>
+    <div style="text-align:right;margin:8px 0 2px"><button class="gbtn" id="btnExpand" type="button">全部展开 / 收起</button></div>
+    <div id="dayList"></div>
+  </section>
+
+  <section class="sec" id="sec-todo">
+    <h2>✍️ 待办清单 <span class="en">TO-DO</span></h2>
+    <div class="card">
+      <ol class="todo" id="todoList"></ol>
+      <div class="todonote">说明：做成纯列表，不做勾选框——勾选只存在各自的浏览器里，多人看到的会不一样。办完一项告诉我，我更新页面。</div>
+    </div>
+  </section>
+
+  <section class="sec" id="sec-tips">
+    <h2>💡 实用贴士 <span class="en">TIPS</span></h2>
+    <div class="tips" id="tipList"></div>
+  </section>
+
+</main>
+
+<footer>
+  单文件站点 · 可离线查看 · 时间均已标注地区时区<br>
+  由 Cloudflare 自动部署，push 即上线
+</footer>
+
+<script>
+"use strict";
+
+/* ================= 数据区 DATA ================= */
+/* 行程信息由我根据你发的截图更新，你无需手动编辑 */
+
+var SAMPLE_MODE = true;
+
+var META = {
+  title: "澳大利亚 + 新西兰 · 112 天 · 4 人",
+  endIso: "2027-01-13T12:00:00+10:00"
+};
+
+function loc(name, lat, lng){ return {name:name, lat:lat, lng:lng}; }
+
+var DAYS = [
+  {day:1, date:"2026-09-24", tz:"Australia/Sydney", off:"+10:00", tzLabel:"悉尼时间 AEST(+10)",
+   home:loc("悉尼 · 机场宜必思酒店", -33.939, 151.175),
+   events:[
+     {t:"2026-09-24T08:50:00+10:00", title:"✈️ 南航 CZ601 抵达", detail:"【示例】广州→悉尼直飞，等你发机票截图后替换", place:loc("悉尼机场 T1 国际", -33.9415, 151.176)},
+     {title:"🚶 达令港闲逛 + 晚餐", detail:"【示例】本周内容占位", place:loc("达令港", -33.8704, 151.2001)},
+     {title:"🏠 Check-in", detail:"机场酒店过渡一晚", place:loc("悉尼机场宜必思", -33.939, 151.175)}]
+  },
+  {day:2, date:"2026-09-25", tz:"Australia/Sydney", off:"+10:00", tzLabel:"悉尼时间 AEST(+10)",
+   home:loc("悉尼 · 港湾酒店", -33.8619, 151.2117),
+   events:[
+     {t:"2026-09-25T09:30:00+10:00", title:"🎭 悉尼歌剧院导览", detail:"【示例】门票建议提前订", book:true, place:loc("悉尼歌剧院", -33.8568, 151.2153)},
+     {title:"🌉 海港大桥步行", detail:"绕桥一周，拍照打卡", place:loc("海港大桥", -33.8523, 151.2108)},
+     {t:"2026-09-25T12:00:00+10:00", title:"🍣 鱼市场午餐", detail:"【示例】", place:loc("悉尼鱼市场", -33.8773, 151.194)}]
+  },
+  {day:3, date:"2026-09-26", tz:"Australia/Sydney", off:"+10:00", tzLabel:"悉尼时间 AEST(+10)",
+   home:loc("悉尼 · 港湾酒店", -33.8619, 151.2117),
+   events:[
+     {title:"🚌 蓝山一日", detail:"【示例】三姐妹峰 / 缆车", place:loc("蓝山", -33.7305, 150.3113)},
+     {title:"🛍 唐人街夜市", detail:"【示例】", place:loc("悉尼唐人街", -33.8787, 151.2045)}]
+  },
+  {day:4, date:"2026-09-27", tz:"Australia/Sydney", off:"+10:00", tzLabel:"悉尼→墨尔本 同处 AEST",
+   home:loc("墨尔本 · 市中心酒店", -37.8136, 144.9631),
+   events:[
+     {t:"2026-09-27T10:20:00+10:00", title:"✈️ 悉尼→墨尔本", detail:"【示例】航班占位 ~1.5h，等你发截图确认", book:true, place:loc("墨尔本机场 T1", -37.6733, 144.843)},
+     {title:"🚃 有轨电车免费区 + 联邦广场", detail:"【示例】", place:loc("联邦广场", -37.8175, 144.9685)}]
+  },
+  {day:5, date:"2026-09-28", tz:"Australia/Sydney", off:"+10:00", tzLabel:"墨尔本时间 AEST",
+   home:loc("阿波罗贝 · 海景民宿", -38.76, 143.67),
+   events:[
+     {t:"2026-09-28T08:00:00+10:00", title:"🚗 大洋路自驾", detail:"【示例】沿海公路，十二门徒看日落", place:loc("十二门徒", -38.6657, 143.1051)},
+     {title:"🌊 吉布森台阶", detail:"可以下到海滩", place:loc("吉布森台阶", -38.6759, 143.1118)}]
+  },
+  {day:6, date:"2026-09-29", tz:"Australia/Sydney", off:"+10:00", tzLabel:"墨尔本时间 AEST",
+   home:loc("凯恩斯 · 海景公寓", -16.9237, 145.7769),
+   events:[
+     {t:"2026-09-29T07:45:00+10:00", title:"✈️ 墨尔本→凯恩斯", detail:"【示例】航班占位 ~3.3h", book:true, place:loc("凯恩斯机场", -16.8733, 145.7462)},
+     {title:"🏖 凯恩斯海滨漫步道", detail:"【示例】", place:loc("凯恩斯滨海大道", -16.916, 145.78)}]
+  },
+  {day:7, date:"2026-09-30", tz:"Australia/Sydney", off:"+10:00", tzLabel:"凯恩斯时间 AEST",
+   home:loc("凯恩斯 · 海景公寓", -16.9237, 145.7769),
+   events:[
+     {t:"2026-09-30T07:00:00+10:00", title:"🤿 大堡礁出海一日", detail:"【示例】出海船票建议提前一周订", book:true, place:loc("凯恩斯码头", -16.925, 145.777)},
+     {title:"🍹 晚间夜市", detail:"【示例】"}
+  ]}
+];
+
+var BOOKINGS = [
+  {icon:"✈️", kind:"机票", title:"广州→悉尼 · 南航 CZ601", sample:true, anchor:true,
+   when:[{t:"2026-09-24T08:50:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
+   addr:"悉尼机场 T1 国际到达", map:loc("悉尼机场 T1", -33.9415, 151.176),
+   phone:"南方航空 +86 95539",
+   note:"【示例】等你的机票截图替换，并以出票时间为锚点重排后续行程"},
+  {icon:"🏨", kind:"酒店", title:"悉尼港湾酒店", sample:true,
+   when:[{t:"2026-09-25T14:00:00+10:00", tz:"Australia/Sydney", tzLabel:"悉尼 AEST(+10)"}],
+   addr:"悉尼 CBD", map:loc("悉尼港湾酒店", -33.8619, 151.2117),
+   phone:"+61 2 0000 0000（示例）",
+   note:"【示例】共 2 晚，连住"},
+  {icon:"🚗", kind:"租车", title:"墨尔本机场租车（4 人 / 中型 SUV）", sample:true,
+   when:[{t:"2026-09-27T12:30:00+10:00", tz:"Australia/Sydney", tzLabel:"墨尔本 AEST(+10)"}],
+   addr:"墨尔本机场 T1 取车柜台", map:loc("墨尔本机场 T1", -37.6733, 144.843),
+   phone:"Hertz +61 3 0000 0000（示例）",
+   note:"【示例】大洋路段自驾，含全险"}
+];
+
+var TODOS = [
+  "护照有效期已更新，拍照备份到网盘（4 份）",
+  "办理澳大利亚 eVisitor / 新西兰 NZeTA",
+  "买保险：4 人份境外旅行险（含自驾 / 水上项目）",
+  "租车：中国驾照 + 翻译认证件（Hertz 认可 NAA 翻译件）",
+  "银行：出境用卡报备 + 换少量澳元、新西兰元",
+  "网络：澳新 eSIM 或本地卡，落地即用",
+  "手机装好：Google 地图先行下载澳新全部离线包",
+  "歌剧院 / 大堡礁等需提前订票项目，随行程确认后逐步补买"
+];
+
+var TIPS = [
+  {icon:"🚘", t:"靠左行驶、右舵", b:"澳新均为右舵左行。自驾第一天先在空旷停车场练习，圆盘环岛让行右侧来车。"},
+  {icon:"🕐", t:"时区要分清", b:"澳东 AEST(+10)/夏令 AEDT(+11)，西澳 +8，新西兰 NZST(+12)/夏令 +13。本页所有时间均已标注地区时区，跨时区打开倒计时不会算错。"},
+  {icon:"☀️", t:"季节与国内相反", b:"本次行程为澳新春夏（9 月—次年 1 月），紫外线强，防晒霜 SPF50+ 随身带。"},
+  {icon:"🔌", t:"插座为三孔扁脚", b:"即常见三孔插座，电压 230V。需带澳标转换插头 + 充电宝。"},
+  {icon:"📶", t:"导航与流量", b:"Google 地图提前下载离线包；大洋路等地区会无信号。eSIM 落地自动激活最省事。"},
+  {icon:"💰", t:"GST 退税", b:"同一商户单张发票满 300 澳元离境可退 10% GST，保留发票走机场 TRS 通道（装个 TRS App）。"},
+  {icon:"🏥", t:"医疗与紧急电话", b:"澳新与我国无医保互惠，务必买保险。紧急电话：澳大利亚 000，新西兰 111。"},
+  {icon:"🍽", t:"物价与预约", b:"热门餐厅 / 出海船 / 歌剧院导览都习惯预约制，尤其 12 月—1 月旺季，能早订就早订。"}
+];
+
+/* ================= 核心函数 ================= */
+
+function instantOf(ev){ return ev && ev.t ? new Date(ev.t) : null; }
+var viewerTz = (function(){ try { return Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){ return "UTC"; } })();
+var viewerAbbr = (function(){
+  try { return new Intl.DateTimeFormat("zh-CN",{timeZone:viewerTz,timeZoneName:"short"}).formatToParts(new Date()).filter(function(p){return p.type==="timeZoneName";})[0].value; }
+  catch(e){ return ""; }
+})();
+
+function fmtTime(inst, tz){
+  return new Intl.DateTimeFormat("zh-CN",{timeZone:tz,hour12:false,hourCycle:"h23",
+    month:"numeric",day:"numeric",weekday:"short",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(inst);
+}
+function fmtClock(inst, tz){
+  return new Intl.DateTimeFormat("zh-CN",{timeZone:tz,hour12:false,hourCycle:"h23",hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(inst);
+}
+function fmtEditorial(inst, tz){ return fmtTime(inst,tz).replace(/\s(GMT[+-]?\d+|UTC)/,""); }
+function fmtWeekday(dateStr, off, tz){
+  var inst = new Date(dateStr + "T12:00:00" + off);
+  return new Intl.DateTimeFormat("zh-CN",{timeZone:tz,month:"numeric",day:"numeric",weekday:"long"}).format(inst);
+}
+function pad(n){ return (n<10?"0":"")+n; }
+function seg(ms){
+  var total = Math.max(0, ms)/1000;
+  var d = Math.floor(total/86400), h = Math.floor(total%86400/3600), m = Math.floor(total%3600/60), s = Math.floor(total%60);
+  return {d:d,h:h,m:m,s:s};
+}
+function cityShort(name){ return name.split("·").pop().trim(); }
+function gmapNav(lat,lng){ return "https://www.google.com/maps/dir/?api=1&destination="+lat+","+lng; }
+function gmapPlace(q){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q); }
+
+/* ---------- 手绘风地图 ---------- */
+var MAPSETT = {
+  aus:{x:function(l){return (l-110)*10;},  y:function(t){return -t*10;}},
+  nz: {x:function(l){return (l-165)*6+505;}, y:function(t){return -t*9+120;}}
+};
+var COASTS = [
+  {r:"aus", pts:[[113.5,-21],[113.5,-25],[114.5,-32],[115,-34],[118,-34.5],[121,-33],[124,-33],[127,-32.5],[128.5,-31.5],[130,-31.5],[130.8,-31.2],[131.5,-30.5],[133,-30],[133.8,-32.8],[137,-35.2],[139,-33.5],[136.5,-32.5],[135.2,-31]]},
+  {r:"aus", pts:[[115,-34],[118,-34.5],[122,-33.5],[126,-32.8],[129,-32.5],[132.2,-32.5],[134.5,-31.5],[136.8,-13.5],[136,-15],[135,-17],[136.5,-17.8],[139.5,-17.7],[141.2,-17.9],[142.5,-10.8],[142.7,-12],[143,-14],[145.4,-14.6],[146.3,-18.5],[148,-20],[150,-22],[152,-25],[153.3,-27.5],[153.4,-30],[153,-32.5],[152.5,-34],[151,-35.7],[150.2,-37.3],[148,-38],[146,-38.5],[145,-39],[143.5,-38.5],[141,-38.3],[138,-37],[135,-35.8],[131.5,-34],[126,-32.8],[122,-33.5],[118,-34.5],[115,-34]]},
+  {r:"aus", pts:[[130,-12],[132.5,-12],[134,-12.3],[136,-11.5],[136.8,-13.5]]},
+  {r:"aus", pts:[[116,-18],[119,-17.5],[122.5,-18],[124.5,-16.8],[127,-15]]},
+  {r:"aus", pts:[[144.8,-41.1],[146.3,-41.1],[147.8,-41],[148.4,-41.8],[148.1,-43.3],[146.7,-43.8],[145,-43.6],[144.4,-42.8],[144.8,-41.1]]},
+  {r:"nz", pts:[[172.4,-34.7],[173.8,-36.2],[175.2,-36.8],[177.8,-38],[178.2,-38.7],[177.2,-39.4],[175.5,-39.3],[174.2,-40.6],[173.3,-41.2],[172.3,-40],[171.5,-38.4],[172.2,-37.8],[172.6,-36.6],[173.1,-35.7],[172.4,-34.7]]},
+  {r:"nz", pts:[[172.8,-40.6],[173.3,-41.3],[174.2,-41.3],[174.4,-42.5],[172.6,-44.3],[169.5,-44.2],[170,-46.5],[171.2,-46.7],[171.6,-45.8],[173.2,-43.9],[173.4,-42.7],[173.3,-41.5]]}
+];
+
+function toXY(r,p){ return {x:MAPSETT[r].x(p[0]), y:MAPSETT[r].y(p[1])}; }
+function smoothPath(pts, jitter){
+  var P = pts.map(function(p){ return {x:p.x+(Math.random()-.5)*jitter, y:p.y+(Math.random()-.5)*jitter}; });
+  var d = "M"+P[0].x.toFixed(1)+","+P[0].y.toFixed(1), i, mx, my;
+  for(i=1;i<P.length-1;i++){
+    mx=(P[i].x+P[i+1].x)/2; my=(P[i].y+P[i+1].y)/2;
+    d+="Q"+P[i].x.toFixed(1)+","+P[i].y.toFixed(1)+" "+mx.toFixed(1)+","+my.toFixed(1);
+  }
+  d+="Q"+(P[P.length-1].x).toFixed(1)+","+(P[P.length-1].y).toFixed(1)+" "+((P[P.length-1].x+P[0].x)/2).toFixed(1)+","+((P[P.length-1].y+P[0].y)/2).toFixed(1);
+  return d;
+}
+function hue(i){ return (i*137.508)%360; }
+function legColor(i, night){ return "hsl("+hue(i).toFixed(0)+" 72% "+(night?"62%":"40%")+")"; }
+function routePath(a,b){
+  var mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy)||1;
+  var off=len*0.24, sx=-dy/len, sy=dx/len, j=(Math.random()-.5)*7;
+  return "M"+a.x.toFixed(1)+","+a.y.toFixed(1)+" Q"+(mx+sx*off+j).toFixed(1)+","+(my+sy*off+j).toFixed(1)+" "+b.x.toFixed(1)+","+b.y.toFixed(1);
+}
+function cityXY(c){
+  if(c.lng>160) return {x:MAPSETT.nz.x(c.lng), y:MAPSETT.nz.y(c.lat)};
+  return {x:MAPSETT.aus.x(c.lng), y:MAPSETT.aus.y(c.lat)};
+}
+function buildLegs(){
+  var legs=[], cur=null;
+  DAYS.forEach(function(d,idx){
+    var key=d.home.name;
+    if(cur && cur.key===key){ cur.end=d.day; }
+    else{
+      if(cur) legs.push(cur);
+      var from = idx>0 ? DAYS[idx-1].home : d.home;
+      cur={key:key, start:d.day, end:d.day, from:from, to:d.home};
+    }
+  });
+  if(cur) legs.push(cur);
+  var night = document.body.classList.contains("night");
+  return legs.map(function(l,i){ l.color=legColor(i, night); return l; });
+}
+function mapSvg(){
+  var svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox","0 0 640 600");
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label","澳新行程路线地图");
+  return svg;
+}
+function coastLayer(svg){
+  COASTS.forEach(function(c,idx){
+    var pts=c.pts.map(function(p){ return toXY(c.r,p); });
+    var d=smoothPath(pts, 3.2);
+    var a=document.createElementNS("http://www.w3.org/2000/svg","path");
+    a.setAttribute("d",d); a.setAttribute("fill","none");
+    a.setAttribute("stroke", idx%2===0 ? "rgba(120,150,110,.10)" : "rgba(120,180,220,.14)");
+    a.setAttribute("stroke-width","10"); a.setAttribute("stroke-linecap","round");
+    svg.appendChild(a);
+    var b=document.createElementNS("http://www.w3.org/2000/svg","path");
+    b.setAttribute("d",d); b.setAttribute("fill","none");
+    b.setAttribute("stroke","var(--ink)"); b.setAttribute("stroke-opacity",".30");
+    b.setAttribute("stroke-width","1.6"); b.setAttribute("stroke-linecap","round");
+    svg.appendChild(b);
+  });
+}
+function dotLayer(svg){
+  var seen={};
+  DAYS.forEach(function(d){
+    var k=d.home.name;
+    if(!seen[k]) seen[k]={c:d.home, start:d.day, end:d.day};
+    else seen[k].end=d.day;
+  });
+  Object.keys(seen).forEach(function(k){
+    var s=seen[k], c=cityXY(s.c);
+    var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("transform","translate("+c.x.toFixed(1)+","+c.y.toFixed(1)+")");
+    var dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    dot.setAttribute("r","5"); dot.setAttribute("fill","#fff");
+    dot.setAttribute("stroke","#d96c2f"); dot.setAttribute("stroke-width","3");
+    g.appendChild(dot);
+    var txt=document.createElementNS("http://www.w3.org/2000/svg","text");
+    txt.setAttribute("class","mlbl"); txt.setAttribute("x","9"); txt.setAttribute("y","-6");
+    txt.setAttribute("dominant-baseline","text-before-edge");
+    txt.textContent=s.c.name+" · 第"+(s.start+(s.end>s.start?"–"+s.end:""))+"天";
+    g.appendChild(txt);
+    svg.appendChild(g);
+  });
+}
+function routeLayer(svg, legs){
+  legs.forEach(function(l,i){
+    var p=document.createElementNS("http://www.w3.org/2000/svg","path");
+    p.setAttribute("d", routePath(cityXY(l.from), cityXY(l.to)));
+    p.setAttribute("fill","none"); p.setAttribute("stroke",l.color);
+    p.setAttribute("stroke-width", l.hi ? "5" : "3");
+    p.setAttribute("stroke-linecap","round");
+    p.setAttribute("stroke-dasharray", l.hi ? "none" : ".5 9");
+    p.setAttribute("stroke-opacity",".9");
+    p.style.pointerEvents="none";
+    svg.appendChild(p);
+  });
+}
+function compass(svg){
+  var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+  g.setAttribute("transform","translate(614,22)");
+  var arrow=document.createElementNS("http://www.w3.org/2000/svg","path");
+  arrow.setAttribute("d","M0,-14 L3.2,4 L0,1.5 L-3.2,4 Z"); arrow.setAttribute("fill","#d96c2f");
+  g.appendChild(arrow);
+  var n=document.createElementNS("http://www.w3.org/2000/svg","text");
+  n.setAttribute("x","0"); n.setAttribute("y","10"); n.setAttribute("text-anchor","middle");
+  n.setAttribute("class","mlbl"); n.textContent="N";
+  g.appendChild(n);
+  var a=document.createElementNS("http://www.w3.org/2000/svg","text");
+  a.setAttribute("x","0"); a.setAttribute("y","-20"); a.setAttribute("text-anchor","middle");
+  a.setAttribute("class","mlbl"); a.textContent="北"; a.setAttribute("font-size","10");
+  g.appendChild(a);
+  svg.appendChild(g);
+}
+function renderMap(container, mode, dayNo){
+  var legs = buildLegs();
+  var svg = mapSvg();
+  coastLayer(svg);
+  if(mode==="overview"){
+    routeLayer(svg, legs);
+  } else {
+    var match = legs.filter(function(l){ return dayNo>=l.start && dayNo<=l.end; })[0];
+    if(match){ match.hi=true; routeLayer(svg,[match]); }
+  }
+  dotLayer(svg);
+  compass(svg);
+  container.innerHTML="";
+  container.appendChild(svg);
+}
+
+/* ---------- 预订 ---------- */
+function renderBookings(){
+  var el=document.getElementById("bookRows"), html="";
+  BOOKINGS.slice().sort(function(a,b){
+    var ai=a.when&&a.when[0] ? new Date(a.when[0].t).getTime() : 0;
+    var bi=b.when&&b.when[0] ? new Date(b.when[0].t).getTime() : 0;
+    return ai-bi;
+  }).forEach(function(b){
+    var when="";
+    if(b.when){
+      when = b.when.map(function(w){
+        var inst=new Date(w.t);
+        return '🕐 <span class="tnum">'+fmtEditorial(inst, w.tz)+"</span>（"+w.tzLabel+"）";
+      }).join("　");
+    }
+    var meta = "";
+    if(b.anchor) meta+='<div class="rd">🎯 行程锚点：以这张出票时间为准</div>';
+    if(b.note) meta+='<div class="rd">'+b.note+"</div>";
+    var btns="";
+    if(b.map) btns+='<a class="gbtn nav" target="_blank" rel="noopener" href="'+gmapNav(b.map.lat,b.map.lng)+'">🧭 导航</a>';
+    if(b.addr) btns+='<a class="gbtn" target="_blank" rel="noopener" href="'+gmapPlace(b.addr)+'">📍 查看地址</a>';
+    if(b.phone) btns+='<a class="gbtn" href="tel:'+b.phone.replace(/[^0-9+]/g,"")+'">📞 '+b.phone+"</a>";
+    html+='<div class="row"><div class="ico">'+b.icon+'</div><div class="body">'
+      +'<div class="rt">'+b.kind+' · '+b.title+(b.sample?'<span class="badge sample">示例·待替换</span>':"")
+      +(b.anchor?'<span class="badge book">锚点</span>':"")+'</div>'
+      +'<div class="rd">'+when+"</div>"+meta
+      +(b.addr?'<div class="rl">📍 '+b.addr+"</div>":"")
+      +'<div class="btnrow">'+btns+'</div>'
+      +"</div></div>";
+  });
+  el.innerHTML=html;
+}
+
+/* ---------- 逐日 ---------- */
+function eventRow(ev,d){
+  var inst=instantOf(ev), time, tzNote="（"+d.tzLabel+"）", extra="";
+  if(inst && !isNaN(inst)){
+    var locT=fmtEditorial(inst,d.tz);
+    try{
+      var viewT=new Intl.DateTimeFormat("zh-CN",{timeZone:viewerTz,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,hourCycle:"h23"}).format(inst);
+      if(viewT!==locT) extra=' <span class="tnum" style="color:var(--muted)">· 你的时区 '+viewT+'</span>';
+    }catch(e){}
+    time='<div class="tt tnum">'+fmtEditorial(inst,d.tz)+"　"+tzNote+extra+"</div>";
+  } else {
+    time='<div class="tt">⏱ 时间灵活，自行安排</div>';
+  }
+  var book = ev.book ? '<span class="badge book">需提前订票</span>' : "";
+  var place = ev.place ? '<span class="td">📍 '+ev.place.name+"</span>" : "";
+  var nav = ev.place&&(ev.place.lat!==undefined) ? '<a class="gbtn nav" target="_blank" rel="noopener" href="'+gmapNav(ev.place.lat,ev.place.lng)+'">🧭 去这里</a>' : "";
+  return '<div class="tl">'+time
+    +'<div class="tr">'+ev.title+book+"</div>"
+    +(ev.detail?'<div class="td">'+ev.detail+"</div>":"")
+    +place
+    +(nav?'<div class="btnrow">'+nav+"</div>":"")
+    +"</div>";
+}
+function dayNavLinks(d){
+  var pts=[];
+  d.events.forEach(function(ev){ if(ev.place&&ev.place.lat!==undefined) pts.push(ev.place); });
+  if(pts.length<2) return "";
+  var links=[], CH=9, i;
+  for(i=0;i<pts.length;i+=CH){
+    var c=pts.slice(i,i+CH);
+    var u="https://www.google.com/maps/dir/?api=1&origin="+c[0].lat+","+c[0].lng
+      +"&destination="+c[c.length-1].lat+","+c[c.length-1].lng
+      +(c.length>2? "&waypoints="+c.slice(1,c.length-1).map(function(p){return p.lat+","+p.lng;}).join("|") : "");
+    links.push('<a class="gbtn nav" target="_blank" rel="noopener" href="'+u+'">🚗 今天全天多点导航'+(pts.length>CH? "（第"+(i/CH+1)+"段）":"")+"</a>");
+  }
+  return '<div class="btnrow">'+links.join("")+'</div>';
+}
+function renderDays(){
+  var list=document.getElementById("dayList"), html="";
+  DAYS.forEach(function(d){
+    var legs=buildLegs();
+    var leg=legs.filter(function(l){return d.day>=l.start&&d.day<=l.end;})[0];
+    var col = leg? leg.color : "#999";
+    var wd=fmtWeekday(d.date,d.off,d.tz);
+    html+='<details class="day" data-day="'+d.day+'">'
+      +'<summary>'
+      +'<span class="ddot" style="background:'+col+'"></span>'
+      +'<span class="dnum">第'+d.day+'天</span>'
+      +'<span class="dt"><b>'+wd+' · '+cityShort(d.home.name)+'</b>🏠 今夜：'+d.home.name+'</span>'
+      +'<span class="chev">⌄</span>'
+      +'</summary>'
+      +'<div class="dbody">'
+      +'<div class="btnrow"><button class="gbtn" type="button" data-map="'+d.day+'">🗺 展开今日路线地图</button>'
+      +dayNavLinks(d)+"</div>"
+      +'<div class="mapwrap" style="display:none;margin-top:10px" data-mmap="'+d.day+'"></div>'
+      +'<div class="timeline">'+d.events.map(function(ev){return eventRow(ev,d);}).join("")+"</div>"
+      +'<div class="btnrow"><a class="gbtn" target="_blank" rel="noopener" href="'+gmapNav(d.home.lat,d.home.lng)+'">🏠 导航到今夜住处</a></div>'
+      +"</div></details>";
+  });
+  list.innerHTML=html;
+
+  Array.prototype.forEach.call(list.querySelectorAll("details.day"), function(det){
+    det.addEventListener("toggle", function(){
+      var md=det.querySelector("[data-mmap]");
+      if(det.open){
+        if(md && md.getAttribute("data-rendered")!=="1"){
+          renderMap(md,"day",parseInt(det.getAttribute("data-day"),10));
+          md.setAttribute("data-rendered","1");
+          md.style.display="block";
+        }
+      } else {
+        if(md) md.style.display="none";
+      }
+    });
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("button[data-map]"), function(b){
+    b.addEventListener("click", function(){
+      var det=b.closest("details.day");
+      if(!det.open) det.open=true;
+      var md=det.querySelector("[data-mmap]");
+      if(md.getAttribute("data-rendered")!=="1"){
+        renderMap(md,"day",parseInt(b.getAttribute("data-map"),10));
+        md.setAttribute("data-rendered","1");
+        md.style.display="block";
+      }
+      md.scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+  });
+}
+function toggleAll(){
+  var dets=document.querySelectorAll("details.day");
+  var anyOpen=false;
+  Array.prototype.forEach.call(dets,function(d){ if(d.open) anyOpen=true; });
+  Array.prototype.forEach.call(dets,function(d){ d.open=!anyOpen; });
+}
+function renderOverview(){
+  var el=document.getElementById("mapBig");
+  renderMap(el,"overview",null);
+  var legs=buildLegs(), lg=document.getElementById("mapLegend"), html="";
+  legs.forEach(function(l){
+    html+='<span class="lg"><span class="swatch" style="background:'+l.color+'"></span>第'+l.start+(l.end>l.start?"–"+l.end:"")+'天 '+(l.start===l.end? "夜宿":"连住")+' '+cityShort(l.to.name)+(l.from.name!==l.to.name? "（自 "+cityShort(l.from.name)+"）":"")+"</span>";
+  });
+  lg.innerHTML=html;
+  var nt=document.getElementById("nightTable"), nh="";
+  DAYS.forEach(function(d){
+    nh+='<tr><td style="white-space:nowrap">第'+d.day+'天</td><td>🏠 '+d.home.name+'</td><td style="text-align:right">'
+      +(d.home.lat!==undefined?'<a target="_blank" rel="noopener" href="'+gmapNav(d.home.lat,d.home.lng)+'">导航</a>':"")+'</td></tr>';
+  });
+  nt.innerHTML=nh;
+}
+
+/* ---------- 待办 & 贴士 ---------- */
+function renderTodo(){
+  var el=document.getElementById("todoList");
+  el.innerHTML=TODOS.map(function(t){
+    return "<li>"+t.text+(t.link?' <a target="_blank" rel="noopener" href="'+t.link+'">去办理 ↗</a>':"")+"</li>";
+  }).join("");
+}
+function renderTips(){
+  var el=document.getElementById("tipList");
+  el.innerHTML=TIPS.map(function(t){
+    return '<div class="tip"><span class="ti">'+t.icon+'</span><div><div class="th">'+t.t+'</div><div class="tb">'+t.b+"</div></div></div>";
+  }).join("");
+}
+
+/* ---------- 此刻关注 / 倒计时 ---------- */
+function allEvents(){
+  var out=[];
+  DAYS.forEach(function(d){ d.events.forEach(function(ev){ if(ev.t) out.push({ev:ev,d:d,inst:new Date(ev.t)}); }); });
+  out.sort(function(a,b){ return a.inst-b.inst; });
+  return out;
+}
+function cdHtml(s){
+  return '<div id="cd">'
+    +'<div class="cdbox"><div class="n tnum">'+s.d+'</div><div class="l">天</div></div>'
+    +'<div class="cdbox"><div class="n tnum">'+pad(s.h)+'</div><div class="l">时</div></div>'
+    +'<div class="cdbox"><div class="n tnum">'+pad(s.m)+'</div><div class="l">分</div></div>'
+    +'<div class="cdbox"><div class="n tnum">'+pad(s.s)+'</div><div class="l">秒</div></div></div>';
+}
+function renderNow(){
+  var card=document.getElementById("nowcard"), now=new Date();
+  var events=allEvents(), next=null, i;
+  for(i=0;i<events.length;i++){ if(events[i].inst>now){ next=events[i]; break; } }
+  var endInst=new Date(META.endIso), html="";
+  if(next){
+    var s=seg(next.inst-now);
+    html+='<div class="when">下一个行程事件 · '+cityShort(next.d.home.name)+'</div>'
+      +'<div class="etitle">'+next.ev.title+'</div>'
+      +cdHtml(s)
+      +'<div class="ctx">当地：'+fmtClock(next.inst,next.d.tz)+"（"+next.d.tzLabel+"）　·　你的时区 "+fmtClock(next.inst,viewerTz)+"<br>"
+      +"📅 第 "+next.d.day+" 天　·　现在你的本地时间 "+fmtClock(now,viewerTz)+"</div>";
+  } else if(endInst>now){
+    html+='<div class="when">已排事件全部完成</div>'
+      +'<div class="etitle">距 112 天行程结束</div>'
+      +cdHtml(seg(endInst-now));
+  } else {
+    html+='<div class="when">🎉</div><div class="etitle">行程已全部结束</div><div class="ctx">辛苦啦，好好休息。</div>';
+  }
+  card.innerHTML=html;
+}
+
+/* ---------- 昼夜主题 ---------- */
+var lastNight=null;
+function applyTheme(){
+  var h=new Date().getHours(), night=h>=19||h<6;
+  if(night===lastNight) return;
+  lastNight=night;
+  document.body.classList.toggle("night",night);
+  var m=document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute("content", night?"#0e1523":"#fdf6e3");
+  if(document.getElementById("mapBig").children.length) renderMap(document.getElementById("mapBig"),"overview",null);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-rendered='1']"),function(md){
+    renderMap(md,"day",parseInt(md.getAttribute("data-mmap"),10));
+  });
+}
+function clockTick(){
+  var now=new Date();
+  document.getElementById("clockTime").textContent=fmtClock(now,viewerTz);
+  document.getElementById("clockTz").textContent=(viewerAbbr||viewerTz)+" · 你看到的时间";
+  renderNow();
+}
+
+/* ---------- 启动 ---------- */
+(function boot(){
+  document.getElementById("btnExpand").addEventListener("click", toggleAll);
+  renderOverview();
+  applyTheme();
+  renderBookings();
+  renderDays();
+  renderTodo();
+  renderTips();
+  clockTick();
+  setInterval(clockTick,1000);
+  setInterval(applyTheme,1000);
+})();
+</script>
+</body>
+</html>
